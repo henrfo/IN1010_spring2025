@@ -29,37 +29,38 @@ public class Celle {
 
     // Hent status
     public char hentStatusTegn() {
-        if (this.levende) {
-            return this.levende ? 'O' : '.'; // Hvis levende, returner 'O', ellers '.'
-        }
+        return this.levende ? 'O' : '.'; // Hvis levende, returner 'O', ellers '.'
+    }
     
-        // Legg til nabocelle
-        public void leggTilNabo(Celle nabo) {
-            if (antNaboer < naboer.length)
+    // Legg til nabocelle
+    public void leggTilNabo(Celle nabo) {
+        if (antNaboer < naboer.length) {
             naboer[antNaboer] = nabo;
             antNaboer++;
         }
     }
 
-      // Metode for aa telle levenede naboer
-        public void tellLevendeNaboer() {
-            antLevendeNaboer = 0;
-            for (int i = 0; i < antNaboer; i++) {
-                if (naboer[i] != null && naboer[i].erLevende()) {
-                    antLevendeNaboer++;
-                }
+    // Metode for aa telle levenede naboer
+    public void tellLevendeNaboer() {
+        antLevendeNaboer = 0;
+        for (int i = 0; i < antNaboer; i++) {
+            if (naboer[i] != null && naboer[i].erLevende()) {
+                antLevendeNaboer++;
             }
         }
+    }
             
-        // Metode for aa oppdatere celle status
-            public void oppdaterStatus() {
-                if (levende) {
-                    if(antLevendeNaboer < 2 || antLevendeNaboer > 3) {
-                        settDoed();
-                    }
-                } else { 
-                    if (antLevendeNaboer == 3) {
-                        settLevende();
-                    }
-                }
+    // Metode for aa oppdatere celle status
+    public void oppdaterStatus() {
+        if (levende) {
+            if (antLevendeNaboer < 2 || antLevendeNaboer > 3) {
+                settDoed();
             }
+        } else { 
+            // Blir levende hvis den har 3 levende naboer
+            if (antLevendeNaboer == 3) {
+                settLevende();
+            }
+        }
+    }
+}

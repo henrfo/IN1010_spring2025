@@ -24,3 +24,11 @@ public class Verden {
         genNr++; // Øk generasjonsnummeret
     }
 }
+
+// Metode for å oppdatere verden til neste generasjon
+public void oppdatering() {
+    rutenett.tellAlleLevendeNaboer(); // TELL LEVENDE NABOER FØRST
+    rutenett.oppdaterAlleCeller(); // DERETTER OPPDATER STATUS FOR CELLENE
+    genNr++; // Øk generasjonsnummeret
+}
+

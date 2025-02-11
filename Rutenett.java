@@ -28,6 +28,14 @@ public class Rutenett {
         }
     }
 
+// Metode for å hente en celle på en gitt posisjon
+public Celle hentCelle(int rad, int kol) {
+    if (rad >= 0 && rad < antRader && kol >= 0 && kol < antKolonner) {
+        return rutenett[rad][kol]; // Returnerer cellen hvis gyldig indeks
+    }
+    return null; // Returnerer null hvis utenfor grensene
+}
+
     // Metode for aa koble alle celler sammen
     public void kobleAlleCeller() {
         for (int rad = 0; rad < antRader; rad++) {

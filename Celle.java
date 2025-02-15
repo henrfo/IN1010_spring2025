@@ -4,7 +4,7 @@ public class Celle {
     private int antNaboer; // antall naboer
     private int antLevendeNaboer; // antall levende naboer
 
-    // Konstruktør: igangsetter cellen som doed
+    // Konstruktoer: starter med cellen som doed og ingen naboer
     public Celle() {
         this.levende = false; // Normalverdi: Doed
         this.naboer = new Celle[8]; // Maks 8 naboer
@@ -12,12 +12,12 @@ public class Celle {
         this.antLevendeNaboer = 0;
     }
 
-    // Metode for aa sette cellen som levende
+    // Metode for aa endre cellen til levende
     public void settLevende() {
         this.levende = true;
     }
 
-    // Metode for aa sette cellen som doed
+    // Metode for aa endre cellen til doed
     public void settDoed() {
         this.levende = false;
     }
@@ -27,39 +27,44 @@ public class Celle {
         return this.levende;
     }
 
-    // Hent status
+    // Hent status (O = levende, . = doed)
     public char hentStatusTegn() {
-        return this.levende ? 'O' : '.'; // Hvis levende, returner 'O', ellers '.'
+        if (this.levende) {
+            return 'O';
+        } else {
+            return '.';
+        }
     }
     
     // Legg til nabocelle
     public void leggTilNabo(Celle nabo) {
-        if (antNaboer < naboer.length) {
-            naboer[antNaboer] = nabo;
-            antNaboer++;
+        if (antNaboer < naboer.length) { //sjekk om plass til flere naboer
+            naboer[antNaboer] = nabo; // legg til nabo
+            antNaboer++; // oeker antaller naboer
         }
     }
 
     // Metode for aa telle levenede naboer
     public void tellLevendeNaboer() {
-        antLevendeNaboer = 0;
-        for (int i = 0; i < antNaboer; i++) {
-            if (naboer[i] != null && naboer[i].erLevende()) {
-                antLevendeNaboer++;
+        antLevendeNaboer = 0; // starter paa null
+        for (int i = 0; i < antNaboer; i++) { // loop gjennom nabo
+            if (naboer[i] != null && naboer[i].erLevende()) { // sjekker om nabo lever
+                antLevendeNaboer++; // oeker antall hvis nabo lever
             }
         }
     }
             
     // Metode for aa oppdatere celle status
     public void oppdaterStatus() {
-        if (levende) {
-            if (antLevendeNaboer < 2 || antLevendeNaboer > 3) {
-                settDoed();
+        if (this.levende) {
+            if (antLevendeNaboer < 2) {
+                this.settDoed(); // doer naar faerre enn to
+            } else if (antLevendeNaboer > 3) {
+                this.settDoed();  // doer naar mer enn tre
             }
-        } else { 
-            // Blir levende hvis den har 3 levende naboer
+        } else {
             if (antLevendeNaboer == 3) {
-                settLevende();
+                this.settLevende(); // levende naar tre naboer
             }
         }
     }

@@ -1,5 +1,5 @@
 public class Verden {
-    public Rutenett rutenett; // Instans av Rutenett
+    public Rutenett rutenett; // Rutenett
     public int genNr; // Antall generasjoner
 
     // Konstruktoer: Oppretter en ny verden med et rutenett av gitt stoerrelse

@@ -1,8 +1,8 @@
 public class Celle {
-    private boolean levende; // Status: true = levende, false = doed
-    private Celle[] naboer; // Array for aa lagre opp til 8 naboer
-    private int antNaboer; // antall naboer
-    private int antLevendeNaboer; // antall levende naboer
+    public  boolean levende; // Status: true = levende, false = doed
+    public Celle[] naboer; // Array for aa lagre opp til 8 naboer
+    public int antNaboer; // antall naboer
+    public int antLevendeNaboer; // antall levende naboer
 
     // Konstruktoer: starter med cellen som doed og ingen naboer
     public Celle() {

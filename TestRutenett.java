@@ -1,5 +1,5 @@
 class TestRutenett {
-    private static void sjekk (String hva, boolean test) {
+    public static void sjekk (String hva, boolean test) {
 	if (! test) {
 	    System.out.println("Sjekken '" + hva + "' feilet!");
 	    System.exit(1);
@@ -134,12 +134,12 @@ class TestRutenett {
     public static void main (String[] arg) {
 	System.out.println("** Test Rutenett **");
 
-	// testKonstruktoerUtenRutenett();
-	// testFyllMedTilfeldigeCeller();
-	// testHentCelle();
-	// testTegnRutenett();
-	// testSettNaboer();
-	// testKobleAlleCeller();
-	// testAntallLevende();
+	testKonstruktoerUtenRutenett();
+	testFyllMedTilfeldigeCeller();
+	testHentCelle();
+	testTegnRutenett();
+	testSettNaboer();
+	testKobleAlleCeller();
+	testAntallLevende();
     }
 }

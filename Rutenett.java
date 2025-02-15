@@ -1,25 +1,25 @@
 public class Rutenett {
-    private Celle[][] rutenett; // 2D-array av celler
-    private int antRader; // Antall rader
-    private int antKolonner; // Antall kolonner
+    public Celle[][] rutene; // 2D-array av celler
+    public int antRader; // Antall rader
+    public int antKolonner; // Antall kolonner
 
     // Konstruktoer  
     public Rutenett(int antRader, int antKolonner) {
         this.antRader = antRader;
         this.antKolonner = antKolonner;
-        this.rutenett = new Celle[antRader][antKolonner];
+        this.rutene = new Celle[antRader][antKolonner];
     }
 
-    // Metode for å opprette en celle på spesifikk plassering
+    // Metode for aa opprette en celle paa spesifikk plassering
     public void lagCelle(int rad, int kol) {
         Celle celle = new Celle();
         if (Math.random() <= 0.3333) {
             celle.settLevende();
         }
-        rutenett[rad][kol] = celle;
+        rutene[rad][kol] = celle;
     }
 
-    // Metode for å fylle rutene med tilfeldige celler
+    // Metode for aa fylle rutene med tilfeldige celler
     public void fyllMedTilfeldigeCeller() {
         for (int rad = 0; rad < antRader; rad++) {
             for (int kol = 0; kol < antKolonner; kol++) {
@@ -28,42 +28,47 @@ public class Rutenett {
         }
     }
 
-    // Metode for å hente en celle på en spesifikk posisjon
+    // Metode for aa hente en celle paa en spesifikk posisjon
     public Celle hentCelle(int rad, int kol) {
         if (rad >= 0 && rad < antRader && kol >= 0 && kol < antKolonner) {
-            return rutenett[rad][kol]; // Returnerer cellen hvis indeks er gyldig
+            return rutene[rad][kol]; // Returnerer cellen hvis indeks er gyldig
         }
         return null; // Returnerer null hvis utenfor grensene
     }
 
-    // Metode for å koble alle celler sammen
+    // Metode for aa koble alle celler sammen
     public void kobleAlleCeller() {
         for (int rad = 0; rad < antRader; rad++) {
             for (int kol = 0; kol < antKolonner; kol++) {
-                Celle celle = rutenett[rad][kol];
-                if (celle != null) { // Sjekker at cellen finnes
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
-                            if (i == 0 && j == 0) continue; // Teller ikke seg selv
-                            int naboRad = rad + i;
-                            int naboKol = kol + j;
-                            Celle nabo = hentCelle(naboRad, naboKol);
-                            if (nabo != null) {
-                                celle.leggTilNabo(nabo);
-                            }
-                        }
+                settNaboer(rad, kol);
+            }
+        }
+    }
+
+    // Metode for aa sette naboer for en spesifikk celle
+    public void settNaboer(int rad, int kol) {
+        Celle celle = hentCelle(rad, kol);
+        if (celle != null) {
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    if (i == 0 && j == 0) continue; // Skipper seg selv
+                    int naboRad = rad + i;
+                    int naboKol = kol + j;
+                    Celle nabo = hentCelle(naboRad, naboKol);
+                    if (nabo != null) {
+                        celle.leggTilNabo(nabo);
                     }
                 }
             }
         }
     }
 
-    // Metode for å tegne rutenettet
+    // Metode for aa tegne rutenettet
     public void tegnRutenett() {
         for (int rad = 0; rad < antRader; rad++) {
             for (int kol = 0; kol < antKolonner; kol++) {
-                if (rutenett[rad][kol] != null) {
-                    System.out.print(rutenett[rad][kol].hentStatusTegn() + " ");
+                if (rutene[rad][kol] != null) {
+                    System.out.print(rutene[rad][kol].hentStatusTegn() + " ");
                 } else {
                     System.out.print("? "); // Feilhaandtering
                 }
@@ -77,7 +82,7 @@ public class Rutenett {
         int antallLevende = 0;
         for (int rad = 0; rad < antRader; rad++) {
             for (int kol = 0; kol < antKolonner; kol++) {
-                if (rutenett[rad][kol] != null && rutenett[rad][kol].erLevende()) {
+                if (rutene[rad][kol] != null && rutene[rad][kol].erLevende()) {
                     antallLevende++; // Teller hvis cellen er levende
                 }
             }
@@ -89,8 +94,8 @@ public class Rutenett {
     public void tellAlleLevendeNaboer() {
         for (int rad = 0; rad < antRader; rad++) {
             for (int kol = 0; kol < antKolonner; kol++) {
-                if (rutenett[rad][kol] != null) { // Sjekker at cellen finnes
-                    rutenett[rad][kol].tellLevendeNaboer();
+                if (rutene[rad][kol] != null) { // Sjekker at cellen finnes
+                    rutene[rad][kol].tellLevendeNaboer();
                 }
             }
         }
@@ -100,8 +105,8 @@ public class Rutenett {
     public void oppdaterAlleCeller() {
         for (int rad = 0; rad < antRader; rad++) {
             for (int kol = 0; kol < antKolonner; kol++) {
-                if (rutenett[rad][kol] != null) { // Sjekker at cellen finnes
-                    rutenett[rad][kol].oppdaterStatus();
+                if (rutene[rad][kol] != null) { // Sjekker at cellen finnes
+                    rutene[rad][kol].oppdaterStatus();
                 }
             }
         }
